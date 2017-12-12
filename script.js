@@ -19,9 +19,7 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
-
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+var lives = 3;
 
 var bricks = [];
 for(c = 0; c < brickColumnCount; c++) {
@@ -31,6 +29,19 @@ for(c = 0; c < brickColumnCount; c++) {
   }
 }
 
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+// document.addEventListener("mousemove", mouseMoveHandler, false);
+
+//this lets the paddle be controlled and move by the mouse cursor
+// function mouseMoveHandler(e) {
+//     var relativeX = e.clientX - canvas.offsetLeft;
+//     if(relativeX > 0 && relativeX < canvas.width) {
+//         paddleX = relativeX - paddleWidth/2;
+//     }
+// }
+
+//these functions change the left and right arrow key to true signifying they are pressed or unpressed
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = true;
@@ -48,30 +59,24 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
-
+//removes a brick from the canvas when hit by the ball by changing its value to 0
 function collisionDetection() {
-  for(c = 0; c < brickColumnCount; c++) {
-    for(r = 0; r < brickRowCount; r++) {
-      var b = bricks[c][r];
-      if(b.status === 1) {
-        if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-          dy = -dy;
-          b.status = 0;
-          score++;
-          if(score === brickRowCounts*birckColumnCount) {
-            alert("YOU WIN, CONGRATULATIONS!");
-            document.location.reload();
-          }
+    for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 1) {
+                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                    score++;
+                    if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATS!");
+                        document.location.reload();
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}
-
-function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
-  ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawBall() {
@@ -89,7 +94,7 @@ function drawPaddle() {
     ctx.fill();
     // ctx.closePath(); not necessary because it is not a stroke
 }
-
+//loops through and creates bricks with columns, rows, and color
 function drawBricks() {
   for(c = 0; c < brickColumnCount; c++) {
     for(r = 0; r < brickRowCount; r++) {
@@ -107,13 +112,25 @@ function drawBricks() {
     }
   }
 }
+//visual and location of score
+function drawScore() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText("Score: " + score, 8, 20);
+}
 
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawBall();
     drawPaddle();
     drawScore();
+    drawLives();
     collisionDetection();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -127,8 +144,18 @@ function draw() {
             dy = -dy;
         }
         else {
+          lives--;
+          if(!lives) {
             alert("GAME OVER");
             document.location.reload();
+          }
+          else {
+              x = canvas.width/2;
+              y = canvas.height-30;
+              dx = 3;
+              dy = -3;
+              paddleX = (canvas.width-paddleWidth)/2;
+            }
         }
     }
 
@@ -141,6 +168,8 @@ function draw() {
 
     x += dx;
     y += dy;
+
+    requestAnimationFrame(draw);
 }
 
-setInterval(draw, 10);
+draw();
