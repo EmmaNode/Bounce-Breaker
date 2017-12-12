@@ -11,9 +11,24 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+var bricks = [];
+for(c = 0; c < brickColumnCount; c++) {
+  bricks[c] = [];
+  for(r = 0; r < brickRowCount; r++) {
+    bricks[c][r] = {x: 0, y: 0};
+  }
+}
 
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
@@ -33,14 +48,12 @@ function keyUpHandler(e) {
     }
 }
 
-//I have gotten this far at explaining the code to James Pond
-
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
-    ctx.closePath();
+    // ctx.closePath(); not necessary because it is not a stroke
 }
 
 function drawPaddle() {
@@ -48,7 +61,7 @@ function drawPaddle() {
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
-    ctx.closePath();
+    // ctx.closePath(); not necessary because it is not a stroke
 }
 
 
