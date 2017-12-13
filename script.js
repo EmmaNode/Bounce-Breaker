@@ -40,9 +40,6 @@ document.addEventListener("keyup", keyUpHandler, false);
 //         paddleX = relativeX - paddleWidth/2;
 //     }
 // }
-function refreshPage(){
-    window.location.reload();
-}
 //these functions change the left and right arrow key to true signifying they are pressed or unpressed
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
@@ -63,16 +60,15 @@ function keyUpHandler(e) {
 }
 //removes a brick from the canvas when hit by the ball by changing its value to 0
 function collisionDetection() {
-    for(c=0; c<brickColumnCount; c++) {
-        for(r=0; r<brickRowCount; r++) {
+    for(c = 0; c < brickColumnCount; c++) {
+        for(r = 0; r < brickRowCount; r++) {
             var b = bricks[c][r];
-            if(b.status == 1) {
+            if(b.status === 1) {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
                     dy = -dy;
                     b.status = 0;
-
                     score++;
-                    if(score == brickRowCount*brickColumnCount) {
+                    if(score === brickRowCount*brickColumnCount) {
                       document.getElementById("result").innerHTML = "Level Completed!";
                       remove.requestAnimationFrame()
                     }
@@ -83,10 +79,10 @@ function collisionDetection() {
 }
 
 
-function drawBall(color) {
+function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = color;
+    ctx.fillStyle = "#fff";
     ctx.fill();
     // ctx.closePath(); not necessary because it is not a stroke
 }
@@ -118,20 +114,20 @@ function drawBricks() {
 }
 //visual and location of score
 function drawScore() {
-  ctx.font = "16px Arial";
+  ctx.font = "16px UniqueRegular";
   ctx.fillStyle = "#0095DD";
   ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
+    ctx.font = "16px UniqueRegular";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
-    drawBall('#0095DD');
+    drawBall();
     drawPaddle();
     drawScore();
     drawLives();
@@ -139,11 +135,9 @@ function draw() {
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
-        drawBall('#fff');
     }
     if(y + dy < ballRadius) {
         dy = -dy;
-        drawBall('#fff');
     }
     else if(y + dy > canvas.height-ballRadius) {
         if(x > paddleX && x < paddleX + paddleWidth) {
@@ -179,3 +173,7 @@ function draw() {
 }
 
 draw();
+
+function refreshPage(){
+    window.location.reload();
+}

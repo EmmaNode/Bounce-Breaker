@@ -2,7 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gamedev Canvas Workshop</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/process" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/unique" type="text/css"/>
+    <title>Heart Breaker</title>
     <style>
     	* { padding: 0; margin: 20; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
@@ -10,10 +13,15 @@
 
 </head>
 <body>
-  <h1 id="result">
-  </h1>
-  <canvas id="myCanvas" width="480" height="320"></canvas>
-  <button type="button" onClick="refreshPage()">RETRY</button>
+  <div class="wrapper">
+    <canvas id="myCanvas" width="480" height="320"></canvas>
+      <div class="tagline">
+        <h1 id="result"></h1>
+      </div>
+      <div class="thisbutton">
+        <button id="reset" type="button" onClick="refreshPage()">Retry</button>
+      </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
