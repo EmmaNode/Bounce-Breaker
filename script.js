@@ -40,7 +40,9 @@ document.addEventListener("keyup", keyUpHandler, false);
 //         paddleX = relativeX - paddleWidth/2;
 //     }
 // }
-
+function refreshPage(){
+    window.location.reload();
+}
 //these functions change the left and right arrow key to true signifying they are pressed or unpressed
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
@@ -68,10 +70,11 @@ function collisionDetection() {
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
                     dy = -dy;
                     b.status = 0;
+
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
-                        alert("YOU WIN, CONGRATS!");
-                        document.location.reload();
+                      document.getElementById("result").innerHTML = "Level Completed!";
+                      remove.requestAnimationFrame()
                     }
                 }
             }
@@ -79,10 +82,11 @@ function collisionDetection() {
     }
 }
 
-function drawBall() {
+
+function drawBall(color) {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = color;
     ctx.fill();
     // ctx.closePath(); not necessary because it is not a stroke
 }
@@ -127,7 +131,7 @@ function drawLives() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
-    drawBall();
+    drawBall('#0095DD');
     drawPaddle();
     drawScore();
     drawLives();
@@ -135,9 +139,11 @@ function draw() {
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
+        drawBall('#fff');
     }
     if(y + dy < ballRadius) {
         dy = -dy;
+        drawBall('#fff');
     }
     else if(y + dy > canvas.height-ballRadius) {
         if(x > paddleX && x < paddleX + paddleWidth) {
@@ -146,8 +152,8 @@ function draw() {
         else {
           lives--;
           if(!lives) {
-            alert("GAME OVER");
-            document.location.reload();
+            document.getElementById("result").innerHTML = "GAMEOVER!";
+            remove.requestAnimationFrame()
           }
           else {
               x = canvas.width/2;
