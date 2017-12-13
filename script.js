@@ -11,7 +11,7 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
-var brickRowCount = 3;
+var brickRowCount = 1;
 var brickColumnCount = 5;
 var brickWidth = 75;
 var brickHeight = 20;
@@ -69,7 +69,7 @@ function collisionDetection() {
                     b.status = 0;
                     score++;
                     if(score === brickRowCount*brickColumnCount) {
-                      document.getElementById("result").innerHTML = "Level Completed!";
+                      document.getElementById("result").innerHTML = "Well Done!";
                       remove.requestAnimationFrame()
                     }
                 }
@@ -82,7 +82,7 @@ function collisionDetection() {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#fffff4";
     ctx.fill();
     // ctx.closePath(); not necessary because it is not a stroke
 }
@@ -90,7 +90,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#000080";
     ctx.fill();
     // ctx.closePath(); not necessary because it is not a stroke
 }
@@ -105,7 +105,7 @@ function drawBricks() {
       bricks[c][r].y = brickY;
       ctx.beginPath();
       ctx.rect(brickX, brickY, brickWidth, brickHeight);
-      ctx.fillStyle = "#0095DD"
+      ctx.fillStyle = "#FFFFF4"
       ctx.fill();
       ctx.closePath();
       }
@@ -115,13 +115,13 @@ function drawBricks() {
 //visual and location of score
 function drawScore() {
   ctx.font = "16px UniqueRegular";
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = "##000080";
   ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawLives() {
     ctx.font = "16px UniqueRegular";
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "##000080";
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 }
 function draw() {
