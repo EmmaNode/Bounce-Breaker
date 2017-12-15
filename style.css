@@ -1,32 +1,53 @@
 
 h1{
-    font-family: 'Process-Registration';
-   font-weight: bold;
-   font-style: normal;
-   color: black;
+  font-family: 'Process-Registration';
+  font-weight: bold;
+  font-style: normal;
+  color: black;
 }
 
-.wrapper{
-  margin: 0 auto;
-  width: 800px;
-  position: relative;
+canvas{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+    top: 150px;
+}
+
+p{
+  spacing: 3px;
+  font-size: 20px;
+  padding: 8px;
 }
 
 .tagline{
-  position: absolute;
-  top: 170px;
-  left: 304px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 800px;
+  position: relative;
+  left: 300px;
+  bottom: 300px;
 }
 
 .thisbutton{
-  position: absolute;
-  top: 350px;
-  left: 357px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 50px;
+  position: relative;
+  left: -19px;
 }
 
 #reset{
-  background: #dddddd;
-  border-radius: 28px;
+  background: #808080;
+  /* border-radius: 28px; */
   font-family: Arial;
   color: #ffffff;
   font-size: 14px;
@@ -39,42 +60,125 @@ h1{
 }
 
 #reset:hover {
-  background: ##000000;
+  background: #000000;
   text-decoration: none;
 }
 
-#mySidenav a {
-    position: absolute;
-    left: -80px;
-    transition: 0.3s;
-    padding: 15px;
-    width: 100px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    border-radius: 0 5px 5px 0;
+nav {
+  height: 64px;
+  background: #000080;
+  padding: 0px 32px;
+  border-bottom: 0px solid #000080;
+  text-align: left;
+  box-shadow: 0px 0px 4px #000080;
 }
-
-#mySidenav a:hover {
-    left: 0;
+nav ul {
+  margin: 0px;
+  padding: 0px;
 }
-
-#about {
-    top: 20px;
-    background-color: #000080;
+.button {
+  font-family: 'UniqueRegular';
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 8px;
+  padding: 0px 32px;
+  display: block;
+  height: 100%;
+  min-width:9px;
+  line-height: 64px;
+  border: 1px solid #000080;
+  border-width: 0px 1px;
+  box-shadow: 0px 0px 4px #ffffff;
+  transition: box-shadow .2s linear;
 }
-
-#blog {
-    top: 80px;
-    background-color: #000080;
+nav ul li, .radio > .button {
+  display: inline-block;
+  vertical-align:top;
 }
-
-#projects {
-    top: 140px;
-    background-color: #000080;
+.add
+{
+  transition: box-shadow .2s linear, margin .3s linear .5s;
 }
-
-#contact {
-    top: 200px;
-    background-color: #000080
+.add.active
+{
+  margin:0 98px;
+  transition: box-shadow .2s linear, margin .3s linear;
+}
+.button:link
+{
+  color: #eee;
+  text-decoration: none;
+}
+.button:visited
+{
+  color: #eee;
+}
+.button:hover
+{
+  box-shadow:none;
+}
+.button:active,
+.button.active {
+  color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0px 0px 4px #ffffff inset;
+}
+nav ul li a:active {
+  color: #000080;
+}
+nav ul li a.active {
+  color: #000080;
+}
+.dialog {
+  font-family: 'UniqueRegular';
+  position: relative;
+  text-align: center;
+  background: 808080;
+  margin: 13px 0 4px 4px;
+  display: inline-block;
+  width: 256px;
+  box-shadow: 0px 0px 8px #000080;
+}
+.dialog:after,
+.dialog:before {
+  bottom: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.dialog:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: #000080;
+  border-width: 15px;
+  left: 50%;
+  margin-left: -15px;
+}
+.dialog:before {
+  border-color: rgba(170, 170, 170, 0);
+  border-width: 16px;
+  left: 50%;
+  margin-left: -16px;
+}
+.dialog .title {
+  color: #000080;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #000080;
+  border-width: 0px 0px 1px 0px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 4px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: 808080;
+  box-shadow: 0px 1px 4px rgba(68, 120, 160, 0.1);
+  font-size: 16px;
+  line-height:2em;
+}
+.dialog .title:first-child {
+  margin-top: -4px;
 }

@@ -5,21 +5,20 @@ var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
-var paddleHeight = 10;
+var paddleHeight = 17;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 var brickRowCount = 1;
-var brickColumnCount = 5;
+var brickColumnCount = 6;
 var brickWidth = 75;
 var brickHeight = 20;
-var brickPadding = 10;
+var brickPadding = 20;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
-var lives = 3;
-
+var lives = 2;
 var bricks = [];
 for(c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
@@ -32,8 +31,37 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+//funtion for MENU
+$(document).ready( function() {
 
+ $('.add').click(function(e){
+   e.stopPropagation();
+  if ($(this).hasClass('active')){
+    $('.dialog').fadeOut(200);
+    $(this).removeClass('active');
+  } else {
+    $('.dialog').delay(300).fadeIn(200);
+    $(this).addClass('active');
+  }
+});
+$('.radio > .button').click( function() {
+  $('.radio').find('.button.active').removeClass('active');
+  $(this).addClass('active');
+});
 
+function closeMenu(){
+  $('.dialog').fadeOut(200);
+  $('.add').removeClass('active');
+}
+
+$(document.body).click( function(e) {
+     closeMenu();
+});
+
+$(".dialog").click( function(e) {
+    e.stopPropagation();
+});
+});
 
 // this lets the paddle be controlled and move by the mouse cursor
 function mouseMoveHandler(e) {
@@ -60,6 +88,8 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+
+
 //removes a brick from the canvas when hit by the ball by changing its value to 0
 function collisionDetection() {
     for(c = 0; c < brickColumnCount; c++) {
@@ -143,7 +173,7 @@ function draw() {
     }
     else if(y + dy > canvas.height-ballRadius) {
         if(x > paddleX && x < paddleX + paddleWidth) {
-            dy = -dy;
+            dy = -dy * 1.1;
         }
         else {
           lives--;
@@ -171,10 +201,12 @@ function draw() {
     x += dx;
     y += dy;
 
+
     requestAnimationFrame(draw);
 }
 
 draw();
+
 
 function refreshPage(){
     window.location.reload();
