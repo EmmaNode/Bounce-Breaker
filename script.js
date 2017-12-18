@@ -11,10 +11,10 @@ var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 var brickRowCount = 4;
-var brickColumnCount = 6;
-var brickWidth = 80;
+var brickColumnCount = 7;
+var brickWidth = 77;
 var brickHeight = 20;
-var brickPadding = 8;
+var brickPadding = 1;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
@@ -116,7 +116,6 @@ function drawBall() {
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
     ctx.fillStyle = "#fffff4";
     ctx.fill();
-    // ctx.closePath(); not necessary because it is not a stroke
 }
 
 function drawPaddle() {
@@ -124,7 +123,6 @@ function drawPaddle() {
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
     ctx.fillStyle = "#000080";
     ctx.fill();
-    // ctx.closePath(); not necessary because it is not a stroke
 }
 //loops through and creates bricks with columns, rows, and color
 function drawBricks() {
@@ -144,7 +142,7 @@ function drawBricks() {
     }
   }
 }
-//visual and location of score
+//visual and location of score and lives
 function drawScore() {
   ctx.font = "16px UniqueRegular";
   ctx.fillStyle = "##000080";
